@@ -1,5 +1,4 @@
-node head.js one.txt
-
+node head.js one.txt ; 
 0
 1
 2

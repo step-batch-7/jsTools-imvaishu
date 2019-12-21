@@ -2,7 +2,7 @@ v0.1 node head.js one.txt
 
 --head.js,folder:-src and test(done)
 
---appTests
+--appTests(done)
 
 --class of head for parsing usrOptions
 
@@ -17,14 +17,8 @@ add unit test cases and then go for additional changes
 --------
  --done--1)folders and main file
 
- 2)head class
+ --done--2)parseUserOptions
 
- 3)parseUserOptions
+ 3)filterRequiredHead;
 
- 4)pickFlow => first: happy path(node head.js one.txt)
-
- 5)check for filePath (validation)
-
- 7)filterRequiredHead;
-
- 8)based on flow and input (choose expected output)
+ 4)based on flow and input (choose expected output)
