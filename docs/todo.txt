@@ -1,0 +1,30 @@
+v0.1 node head.js one.txt
+
+--head.js,folder:-src and test
+
+--appTests
+
+--class of head for parsing usrOptions
+
+--unit test cases:to test each function(see:flow)
+
+--make sure it will work atLeast for first flow;
+
+--commit 
+
+-----------
+add unit test cases and then go for additional changes
+--------
+ 1)folders and main file
+
+ 2)head class
+
+ 3)parseUserOptions
+
+ 4)pickFlow => first: happy path(node head.js one.txt)
+
+ 5)check for filePath (validation)
+
+ 7)filterRequiredHead;
+
+ 8)based on flow and input (choose expected output)

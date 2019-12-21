@@ -1,3 +1,13 @@
+-- expectation---
+
+1)node head.js one.txt
+2)node head.js -n 5 one.txt
+3)node head.js one.txt two.txt
+4)node head.txt -n 5 one.txt two.txt
+5)cat one.txt |node head.js
+6)cat one.txt |node head.js -n 5
+
+----------------
 node head.js one.txt
 
 outPut => 
