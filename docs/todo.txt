@@ -1,6 +1,6 @@
 v0.1 node head.js one.txt
 
---head.js,folder:-src and test
+--head.js,folder:-src and test(done)
 
 --appTests
 
@@ -15,7 +15,7 @@ v0.1 node head.js one.txt
 -----------
 add unit test cases and then go for additional changes
 --------
- 1)folders and main file
+ --done--1)folders and main file
 
  2)head class
 
