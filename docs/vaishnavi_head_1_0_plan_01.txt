@@ -1,0 +1,235 @@
+node head.js one.txt
+
+outPut => 
+1)\n2)\n3)\n4)\n5)\n6)\n7)\n8)\n9)\n10)
+
+----blackBox of app-----
+
+expected=>  
+1)\n2)\n3)\n4)\n5)\n6)\n7)\n8)\n9)\n10)
+
+appName => head.js(already chosen);
+
+====expectedOutput========
+
+1) give lines(mentioned in commandLineArguments)
+2) if less lines present in file than mentioned in command 
+3)if file path is not exists(file missing)
+
+----------------
+==========firstFlow========
+node head.js one.txt
+
+outPut => 
+1)\n2)\n3)\n4)\n5)\n6)\n7)\n8)\n9)\n10)
+---------------------------
+commandLineArguments =  ['node','head.js','one.txt']
+
+the last Step--------
+
+[1]
+outPut=> text:first 10 lines of file;
+1)\n2)\n3)\n4)\n5)\n6)\n7)\n8)\n9)\n10)
+
+------------------
+[2]
+output ==> text: lines of file ;
+if file contains less than 10 lines then it will give all lines ..
+1)\n2)\n3)\n4)\n5)
+
+------------------
+[3]
+output => error:message
+head: notes.txt: No such file or directory;
+
+input=>([1],[2],[3]==>fn())
+-------------------
+
+the previous step:
+output : expected output(\\splitEd lines) 
+
+input : array of lines 
+name:getHeadOfFile
+
+-------------------------
+
+==========secondFlow========
+
+node head.js -n 5 one.txt
+
+Output => text:
+1)\n2)\n3)\n4)\n5)
+------------------------------
+commandLineArguments => ['node','head.js','-n','5','one.txt']
+
+the last step-------
+
+[1]
+outPut=> text:mentioned 5 lines of file;
+1)\n2)\n3)\n4)\n5)
+
+--------------
+[2]
+output ==> text: lines of file ;
+if file contains less than 10 lines then it will give all lines ..
+1)\n2)\n3)\n4)
+
+----------
+[3]
+output => error:message
+
+input=>([1],[2],[3]==>fn())
+-------------------------
+
+the previous step:
+output : expected output(\\splitEd lines) 
+
+input : array of lines 
+name:getHeadOfFile
+e
+
+----------------------------
+
+========thirdFlow========
+
+here only commandLineArguments are different as compare to  previous flow 
+commandLineArguments =>  
+['node','head.js','one.txt','two.txt]
+
+the last Step:
+-------------------
+[1] 
+output:
+==> filename1 <==
+1)\n2)\n3)\n4)\n5)\n6)\n7)\n8)\n9)\n10)
+
+==> filename <==
+1)\n2)\n3)\n4)\n5)\n6)\n7)\n8)\n9)\n10)
+input : this section flow would be called here
+---------- 
+[2]
+output: if less lines present in file.
+filename and lines whatever present in file 
+
+----------
+[3]
+output: 
+==>filename<== 
+error message
+
+input=>([1],[2],[3]==>fn())
+----------------------
+
+
+the previous step:
+output : expected output(\\splitEd lines) 
+
+input : array of lines 
+name:getHeadOfFile
+
+
+---------------------
+
+=========fourthFlow===========
+
+commandLineArguments => ['node','head.js','-n','5','one.txt','two.txt']
+
+the last step-------
+
+[1]
+outPut:text:mentioned 5 lines of file;
+==> filename1 <==
+1)\n2)\n3)\n4)\n5)
+
+==> filename1 <==
+1)\n2)\n3)\n4)\n5)
+
+-----------------
+[2]
+
+output:
+output: if less lines present in file.
+filename and lines whatever present in file 
+-------------------
+[3]
+output: 
+==>filename<== 
+error message
+
+input=>([1],[2],[3]==>fn())
+----------------------
+
+the previous step:
+output : expected output(\\splitEd lines) 
+
+input : array of lines 
+name:getHeadOfFile
+
+------------------------
+
+========fifthFlow=======
+
+same as first requirement---
+but here---
+output => same as first flow
+
+input==> standard input 
+\\[cat one.txt | head]
+
+-----------------------
+
+========sixthFlow=======
+same as second flow--
+
+output=> same as second flow
+
+input=> standard input
+\\[cat one.txt | head -n 5]
+
+-----------------------
+
+======common things========
+
+output => array of lines:(required lines)
+    
+input => object :details
+
+name => filterRequiredHead
+
+======== choice of flow based on action ========
+[1]
+output => f(object)
+based on <range>
+input => text: action
+ Head{filename:<filename>||undefined,range:{start:0,end:10||given no.}}
+
+based on <filePath>
+
+standard input ==>
+(filePath:undefined):5th and 6th flow
+
+name => verb(pick/choose) trans io(action)
+    pickFlow
+
+ -----------------------------------------   
+[2]
+output => object:details
+    Head{filename:<filename>||undefined,range:{start:0,end:10||given no.}}
+input => array of strings: commandLineArgs
+ ['node','head.js','one.txt'] : => different for each flow
+name =>
+    parseUserOptions
+
+---------------------------------------
+(optional till 5th and 6th flows are not being implemented)
+
+[6.3]
+output => head/cat(standard output)
+input=>
+    ['node','head.js','one.txt']
+        or
+    ['node','head.js','-n','5','one.txt']
+    or
+   ['cat', 'one.txt', '|', 'node', 'head.js']
+name:parseAction
+============
