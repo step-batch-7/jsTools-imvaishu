@@ -2,10 +2,10 @@ const chai = require("chai");
 const assert = chai.assert;
 const {
   parseUsrOptions,
-  getHeadOfFile,
-  getRequiredHead,
-  filterRequiredHead
-} = require("../src/lib");
+  joinLines,
+  load10Lines,
+  extractUpper10Lines
+} = require("../src/headLib");
 
 describe("utils", function() {
   describe("parseUsrOptions", function() {
@@ -14,39 +14,39 @@ describe("utils", function() {
       const actualValue = parseUsrOptions(args);
       const expectedValue = {
         fileName: "one.txt",
-        range: { start: 0, end: 10 }
+        end: 10
       };
 
       assert.deepStrictEqual(actualValue, expectedValue);
     });
   });
 
-  describe("getHeadOfFile", function() {
+  describe("joinLines", function() {
     it("should return head of file by joining with \n", function() {
       const contentOfFile = ["0", "1", "2", "3", "4", "5"];
       const expectedAns = `0\n1\n2\n3\n4\n5`;
 
-      assert.deepStrictEqual(getHeadOfFile(contentOfFile), expectedAns);
+      assert.deepStrictEqual(joinLines(contentOfFile), expectedAns);
     });
   });
 
-  describe("getRequiredHead", function() {
+  describe("load10Lines", function() {
     it("should return given no.of lines", function() {
-      const parsedUsrOptions = {
+      const requireProperties = {
         fileName: "something",
-        range: { start: 0, end: 10 }
+        end: 10
       };
 
       const content = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
       const expectedAns = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
       assert.deepStrictEqual(
-        getRequiredHead(parsedUsrOptions, content, []),
+        load10Lines(requireProperties, content, []),
         expectedAns
       );
     });
   });
-  describe("filterRequiredHead", function() {
+  describe("extractUpper10Lines", function() {
     it("should return error message if file is not present", function() {
       const args = ["somePath"];
 
@@ -66,7 +66,7 @@ describe("utils", function() {
       const expectedAns = [`head: somePath: No such file or directory`];
 
       assert.deepStrictEqual(
-        filterRequiredHead(args, requiredDetails),
+        extractUpper10Lines(args, requiredDetails),
         expectedAns
       );
     });
@@ -94,7 +94,7 @@ describe("utils", function() {
       const expectedAns = ["0", "1", "2", "3", "4", "5"];
 
       assert.deepStrictEqual(
-        filterRequiredHead(args, requiredDetails),
+        extractUpper10Lines(args, requiredDetails),
         expectedAns
       );
     });
@@ -122,7 +122,7 @@ describe("utils", function() {
       const expectedAns = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
       assert.deepStrictEqual(
-        filterRequiredHead(args, requiredDetails),
+        extractUpper10Lines(args, requiredDetails),
         expectedAns
       );
     });
