@@ -1,0 +1,2 @@
+node head.js missing.txt
+head: missing.txt: No such file or directory

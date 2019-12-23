@@ -4,21 +4,25 @@ v0.1 node head.js one.txt
 
 --appTests(done)
 
---class of head for parsing usrOptions
-
---unit test cases:to test each function(see:flow)
+--unit test cases(done)
 
 --make sure it will work atLeast for first flow;
 
---commit 
+--commit (done)
 
 -----------
-add unit test cases and then go for additional changes
+add unit test cases and then go for additional changes(done)
 --------
  --done--1)folders and main file
 
  --done--2)parseUserOptions
 
- 3)filterRequiredHead;
+ --done--3)filterRequiredHead;
 
- 4)based on flow and input (choose expected output)
+--done-- 4)based on flow and input (choose expected output)
+
+--it should work for
+--done--1)file missing
+--done--2)given no. of lines
+--done--3) less lines
+--remaining--4)stdin 

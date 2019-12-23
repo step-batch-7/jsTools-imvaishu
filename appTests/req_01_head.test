@@ -1,4 +1,4 @@
-node head.js one.txt ; 
+node head.js ./appTests/moreThan10Lines.txt     
 0
 1
 2
