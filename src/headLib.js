@@ -6,21 +6,28 @@ const parseUsrOptions = function(args) {
   return { fileName: args[0], end: 10 };
 };
 
-const load10Lines = function(requireProperties, loadContent, requiredHead) {
+const extractUpper10lines = function(
+  requireProperties,
+  loadContent,
+  requiredHead
+) {
   for (let noOfLine = 0; noOfLine < requireProperties.end; noOfLine++) {
     requiredHead.push(loadContent[noOfLine]);
   }
   return requiredHead;
 };
 
-const extractUpper10Lines = function(args, fileSyncs) {
+const performHead = function(args, fileSystemFunctions) {
   const requireProperties = parseUsrOptions(args);
 
-  if (!fileSyncs.doesExists(requireProperties.fileName)) {
+  if (!fileSystemFunctions.doesExists(requireProperties.fileName)) {
     return [`head: ${requireProperties.fileName}: No such file or directory`];
   }
 
-  let content = fileSyncs.reader(requireProperties.fileName, fileSyncs.encoder);
+  let content = fileSystemFunctions.reader(
+    requireProperties.fileName,
+    fileSystemFunctions.encoder
+  );
 
   content = content.split("\n");
 
@@ -28,12 +35,12 @@ const extractUpper10Lines = function(args, fileSyncs) {
     requireProperties.end = content.length;
   }
 
-  return load10Lines(requireProperties, content, []);
+  return extractUpper10lines(requireProperties, content, []);
 };
 
 module.exports = {
-  extractUpper10Lines,
+  performHead,
   parseUsrOptions,
   joinLines,
-  load10Lines
+  extractUpper10lines
 };

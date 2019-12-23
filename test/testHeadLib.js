@@ -3,8 +3,8 @@ const assert = chai.assert;
 const {
   parseUsrOptions,
   joinLines,
-  load10Lines,
-  extractUpper10Lines
+  extractUpper10lines,
+  performHead
 } = require("../src/headLib");
 
 describe("utils", function() {
@@ -30,7 +30,7 @@ describe("utils", function() {
     });
   });
 
-  describe("load10Lines", function() {
+  describe("extractUpper10Lines", function() {
     it("should return given no.of lines", function() {
       const requireProperties = {
         fileName: "something",
@@ -41,12 +41,12 @@ describe("utils", function() {
       const expectedAns = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
       assert.deepStrictEqual(
-        load10Lines(requireProperties, content, []),
+        extractUpper10lines(requireProperties, content, []),
         expectedAns
       );
     });
   });
-  describe("extractUpper10Lines", function() {
+  describe("performHead", function() {
     it("should return error message if file is not present", function() {
       const args = ["somePath"];
 
@@ -65,10 +65,7 @@ describe("utils", function() {
 
       const expectedAns = [`head: somePath: No such file or directory`];
 
-      assert.deepStrictEqual(
-        extractUpper10Lines(args, requiredDetails),
-        expectedAns
-      );
+      assert.deepStrictEqual(performHead(args, requiredDetails), expectedAns);
     });
 
     it("should return array of lines if file contains less no. of line than mentioned in range", function() {
@@ -93,10 +90,7 @@ describe("utils", function() {
 
       const expectedAns = ["0", "1", "2", "3", "4", "5"];
 
-      assert.deepStrictEqual(
-        extractUpper10Lines(args, requiredDetails),
-        expectedAns
-      );
+      assert.deepStrictEqual(performHead(args, requiredDetails), expectedAns);
     });
 
     it("should return array of given no. of lines if file contains more lines than mentioned lines", function() {
@@ -121,10 +115,7 @@ describe("utils", function() {
 
       const expectedAns = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
-      assert.deepStrictEqual(
-        extractUpper10Lines(args, requiredDetails),
-        expectedAns
-      );
+      assert.deepStrictEqual(performHead(args, requiredDetails), expectedAns);
     });
   });
 });

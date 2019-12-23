@@ -1,16 +1,16 @@
 const fs = require("fs");
-const { joinLines, extractUpper10Lines } = require("./src/headLib");
+const { joinLines, performHead } = require("./src/headLib");
 
 const main = function() {
   const args = process.argv.slice(2);
 
-  const fileSyncs = {
+  const fileSystemFunctions = {
     doesExists: fs.existsSync,
     reader: fs.readFileSync,
     encoder: "utf-8"
   };
 
-  const content = extractUpper10Lines(args, fileSyncs);
+  const content = performHead(args, fileSystemFunctions);
   const head = joinLines(content);
 
   console.log(head);
