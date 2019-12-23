@@ -4,7 +4,7 @@ const {
   parseUsrOptions,
   joinLines,
   extractUpper10lines,
-  performHead
+  head
 } = require("../src/headLib");
 
 describe("utils", function() {
@@ -46,7 +46,7 @@ describe("utils", function() {
       );
     });
   });
-  describe("performHead", function() {
+  describe("head", function() {
     it("should return error message if file is not present", function() {
       const args = ["somePath"];
 
@@ -65,7 +65,7 @@ describe("utils", function() {
 
       const expectedAns = [`head: somePath: No such file or directory`];
 
-      assert.deepStrictEqual(performHead(args, requiredDetails), expectedAns);
+      assert.deepStrictEqual(head(args, requiredDetails), expectedAns);
     });
 
     it("should return array of lines if file contains less no. of line than mentioned in range", function() {
@@ -90,7 +90,7 @@ describe("utils", function() {
 
       const expectedAns = ["0", "1", "2", "3", "4", "5"];
 
-      assert.deepStrictEqual(performHead(args, requiredDetails), expectedAns);
+      assert.deepStrictEqual(head(args, requiredDetails), expectedAns);
     });
 
     it("should return array of given no. of lines if file contains more lines than mentioned lines", function() {
@@ -115,7 +115,7 @@ describe("utils", function() {
 
       const expectedAns = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
-      assert.deepStrictEqual(performHead(args, requiredDetails), expectedAns);
+      assert.deepStrictEqual(head(args, requiredDetails), expectedAns);
     });
   });
 });

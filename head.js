@@ -1,5 +1,5 @@
 const fs = require("fs");
-const { joinLines, performHead } = require("./src/headLib");
+const { joinLines, head } = require("./src/headLib");
 
 const main = function() {
   const args = process.argv.slice(2);
@@ -10,10 +10,10 @@ const main = function() {
     encoder: "utf-8"
   };
 
-  const content = performHead(args, fileSystemFunctions);
-  const head = joinLines(content);
+  const content = head(args, fileSystemFunctions);
+  const lines = joinLines(content);
 
-  console.log(head);
+  console.log(lines);
 };
 
 main();

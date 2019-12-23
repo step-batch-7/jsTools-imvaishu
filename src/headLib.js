@@ -6,40 +6,37 @@ const parseUsrOptions = function(args) {
   return { fileName: args[0], end: 10 };
 };
 
-const extractUpper10lines = function(
-  requireProperties,
-  loadContent,
-  requiredHead
-) {
-  for (let noOfLine = 0; noOfLine < requireProperties.end; noOfLine++) {
-    requiredHead.push(loadContent[noOfLine]);
+const extractUpper10lines = function(parsedOptions, line) {
+  let upperLines = [];
+  for (let noOfLine = 0; noOfLine < parsedOptions.end; noOfLine++) {
+    upperLines.push(line[noOfLine]);
   }
-  return requiredHead;
+  return upperLines;
 };
 
-const performHead = function(args, fileSystemFunctions) {
-  const requireProperties = parseUsrOptions(args);
+const head = function(args, fileSystemFunctions) {
+  const parsedOptions = parseUsrOptions(args);
 
-  if (!fileSystemFunctions.doesExists(requireProperties.fileName)) {
-    return [`head: ${requireProperties.fileName}: No such file or directory`];
+  if (!fileSystemFunctions.doesExists(parsedOptions.fileName)) {
+    return [`head: ${parsedOptions.fileName}: No such file or directory`];
   }
 
-  let content = fileSystemFunctions.reader(
-    requireProperties.fileName,
+  const content = fileSystemFunctions.reader(
+    parsedOptions.fileName,
     fileSystemFunctions.encoder
   );
 
-  content = content.split("\n");
+  const storedData = content.split("\n");
 
-  if (content.length < requireProperties.end) {
-    requireProperties.end = content.length;
+  if (storedData.length < parsedOptions.end) {
+    parsedOptions.end = storedData.length;
   }
 
-  return extractUpper10lines(requireProperties, content, []);
+  return extractUpper10lines(parsedOptions, storedData);
 };
 
 module.exports = {
-  performHead,
+  head,
   parseUsrOptions,
   joinLines,
   extractUpper10lines
