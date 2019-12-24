@@ -1,5 +1,5 @@
 const fs = require("fs");
-const { head } = require("./src/headLib");
+const { head, showResult } = require("./src/headLib");
 
 const main = function() {
   const args = process.argv.slice(2);
@@ -12,8 +12,8 @@ const main = function() {
 
   const result = head(args, fileSystemLib);
 
-  result.isError && console.error(result.content);
-  !result.isError && console.log(result.content);
+  const display = showResult(result);
+  display(result.content);
 };
 
 main();

@@ -1,6 +1,6 @@
 const chai = require("chai");
 const assert = chai.assert;
-const { parseUsrOptions, head } = require("../src/headLib");
+const { parseUsrOptions, head, showResult } = require("../src/headLib");
 
 describe("headLib", function() {
   describe("parseUsrOptions", function() {
@@ -9,10 +9,24 @@ describe("headLib", function() {
       const actualValue = parseUsrOptions(args);
       const expectedValue = {
         fileName: "path",
-        range: { start: 0, end: 10 }
+        start: 0,
+        end: 10
       };
 
       assert.deepStrictEqual(actualValue, expectedValue);
+    });
+  });
+  describe("showDisplay", function() {
+    it("should return console.log if there is not error", function() {
+      const result = { content: "", isErr: false };
+
+      assert.deepStrictEqual(showResult(result), console.log);
+    });
+
+    it("should return console.error if there is error", function() {
+      const result = { content: "", isErr: true };
+
+      assert.deepStrictEqual(showResult(result), console.error);
     });
   });
 

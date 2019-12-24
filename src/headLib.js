@@ -1,9 +1,14 @@
+const showResult = function(result) {
+  if (result.isErr) return console.error;
+  return console.log;
+};
+
 const getStreamType = function(content, isErr) {
   return { content, isErr };
 };
 
 const parseUsrOptions = function(args) {
-  return { fileName: args[0], range: { start: 0, end: 10 } };
+  return { fileName: args[0], start: 0, end: 10 };
 };
 
 const head = function(args, fileSystemLib) {
@@ -13,17 +18,12 @@ const head = function(args, fileSystemLib) {
     const errMessage = `head: ${options.fileName}: No such file or directory`;
     return getStreamType(new Error(errMessage).message, true);
   }
-
   const content = fileSystemLib.reader(options.fileName, fileSystemLib.encoder);
   const lines = content.split("\n");
 
-  if (lines.length < options.range.end) {
-    options.range.end = lines.length;
-  }
+  const upperLines = lines.slice(options.start, options.end).join("\n");
 
-  const upperLines = lines.slice(options.range.start, options.range.end);
-
-  return getStreamType(upperLines.join("\n"), false);
+  return getStreamType(upperLines, false);
 };
 
-module.exports = { head, parseUsrOptions };
+module.exports = { head, parseUsrOptions, showResult };
