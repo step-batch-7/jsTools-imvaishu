@@ -1,5 +1,5 @@
 const fs = require("fs");
-const { joinLines, head } = require("./src/headLib");
+const { head } = require("./src/headLib");
 
 const main = function() {
   const args = process.argv.slice(2);
@@ -10,10 +10,13 @@ const main = function() {
     encoder: "utf-8"
   };
 
-  const extractedTopLines = head(args, fileSystemLib);
-  const topLines = joinLines(extractedTopLines);
+  const streamTypes = {
+    errType: console.error,
+    outputType: console.log
+  };
 
-  console.log(topLines);
+  const result = head(args, fileSystemLib);
+  streamTypes[result.streamType](result.content);
 };
 
 main();

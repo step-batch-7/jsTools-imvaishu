@@ -1,5 +1,8 @@
-const joinLines = function(contentOfFile) {
-  return contentOfFile.join("\n");
+const getStreamType = function(content, streamType) {
+  return {
+    content,
+    streamType
+  };
 };
 
 const parseUsrOptions = function(args) {
@@ -10,7 +13,8 @@ const head = function(args, fileSystemLib) {
   const parsedOptions = parseUsrOptions(args);
 
   if (!fileSystemLib.doesExists(parsedOptions.fileName)) {
-    return [`head: ${parsedOptions.fileName}: No such file or directory`];
+    const errMessage = `head: ${parsedOptions.fileName}: No such file or directory`;
+    return getStreamType(errMessage, "errType");
   }
 
   const content = fileSystemLib.reader(
@@ -24,11 +28,13 @@ const head = function(args, fileSystemLib) {
     parsedOptions.range.end = storedData.length;
   }
 
-  return storedData.slice(parsedOptions.range.start, parsedOptions.range.end);
+  const extractedUpperLines = storedData
+    .slice(parsedOptions.range.start, parsedOptions.range.end)
+    .join("\n");
+  return getStreamType(extractedUpperLines, "outputType");
 };
 
 module.exports = {
   head,
-  parseUsrOptions,
-  joinLines
+  parseUsrOptions
 };
