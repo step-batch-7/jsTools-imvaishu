@@ -1,20 +1,18 @@
 const chai = require("chai");
 const assert = chai.assert;
-const {
-  parseUsrOptions,
-  joinLines,
-  extractUpper10lines,
-  head
-} = require("../src/headLib");
+const { parseUsrOptions, joinLines, head } = require("../src/headLib");
 
-describe("utils", function() {
+describe("headLib", function() {
   describe("parseUsrOptions", function() {
     it("should parse commandLine arguments if only filename is given", function() {
-      const args = ["one.txt"];
+      const args = ["path"];
       const actualValue = parseUsrOptions(args);
       const expectedValue = {
-        fileName: "one.txt",
-        end: 10
+        fileName: "path",
+        range: {
+          start: 0,
+          end: 10
+        }
       };
 
       assert.deepStrictEqual(actualValue, expectedValue);
@@ -30,22 +28,6 @@ describe("utils", function() {
     });
   });
 
-  describe("extractUpper10Lines", function() {
-    it("should return given no.of lines", function() {
-      const requireProperties = {
-        fileName: "something",
-        end: 10
-      };
-
-      const content = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
-      const expectedAns = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-
-      assert.deepStrictEqual(
-        extractUpper10lines(requireProperties, content, []),
-        expectedAns
-      );
-    });
-  });
   describe("head", function() {
     it("should return error message if file is not present", function() {
       const args = ["somePath"];
