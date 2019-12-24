@@ -38,7 +38,7 @@ describe("headLib", function() {
 
       const expectedAns = {
         content: `head: somePath: No such file or directory`,
-        streamType: "errType"
+        isError: true
       };
 
       assert.deepStrictEqual(head(args, requiredDetails), expectedAns);
@@ -66,7 +66,7 @@ describe("headLib", function() {
 
       const expectedAns = {
         content: `0\n1\n2\n3\n4\n5`,
-        streamType: "outputType"
+        isError: false
       };
 
       assert.deepStrictEqual(head(args, requiredDetails), expectedAns);
@@ -94,7 +94,7 @@ describe("headLib", function() {
 
       const expectedAns = {
         content: `0\n1\n2\n3\n4\n5\n6\n7\n8\n9`,
-        streamType: "outputType"
+        isError: false
       };
 
       assert.deepStrictEqual(head(args, requiredDetails), expectedAns);

@@ -1,7 +1,7 @@
-const getStreamType = function(content, streamType) {
+const getStreamType = function(content, isError) {
   return {
     content,
-    streamType
+    isError
   };
 };
 
@@ -14,7 +14,7 @@ const head = function(args, fileSystemLib) {
 
   if (!fileSystemLib.doesExists(parsedOptions.fileName)) {
     const errMessage = `head: ${parsedOptions.fileName}: No such file or directory`;
-    return getStreamType(errMessage, "errType");
+    return getStreamType(errMessage, true);
   }
 
   const content = fileSystemLib.reader(
@@ -22,16 +22,16 @@ const head = function(args, fileSystemLib) {
     fileSystemLib.encoder
   );
 
-  const storedData = content.split("\n");
+  const lines = content.split("\n");
 
-  if (storedData.length < parsedOptions.range.end) {
-    parsedOptions.range.end = storedData.length;
+  if (lines.length < parsedOptions.range.end) {
+    parsedOptions.range.end = lines.length;
   }
 
-  const extractedUpperLines = storedData
+  const extractedUpperLines = lines
     .slice(parsedOptions.range.start, parsedOptions.range.end)
     .join("\n");
-  return getStreamType(extractedUpperLines, "outputType");
+  return getStreamType(extractedUpperLines, false);
 };
 
 module.exports = {

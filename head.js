@@ -16,7 +16,9 @@ const main = function() {
   };
 
   const result = head(args, fileSystemLib);
-  streamTypes[result.streamType](result.content);
+
+  result.isError && streamTypes.errType(result.content);
+  !result.isError && streamTypes.outputType(result.content);
 };
 
 main();

@@ -26,3 +26,5 @@ add unit test cases and then go for additional changes(done)
 --done--2)given no. of lines
 --done--3) less lines
 --remaining--4)stdin 
+-------------------
+define streams :--done--
