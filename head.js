@@ -10,15 +10,10 @@ const main = function() {
     encoder: "utf-8"
   };
 
-  const streamTypes = {
-    errType: console.error,
-    outputType: console.log
-  };
-
   const result = head(args, fileSystemLib);
 
-  result.isError && streamTypes.errType(result.content);
-  !result.isError && streamTypes.outputType(result.content);
+  result instanceof Error && console.error(result);
+  !(result instanceof Error) && console.log(result);
 };
 
 main();
