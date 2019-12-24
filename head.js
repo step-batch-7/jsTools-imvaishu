@@ -12,8 +12,8 @@ const main = function() {
 
   const result = head(args, fileSystemLib);
 
-  result instanceof Error && console.error(result);
-  !(result instanceof Error) && console.log(result);
+  result.isError && console.error(result.content);
+  !result.isError && console.log(result.content);
 };
 
 main();

@@ -27,4 +27,5 @@ add unit test cases and then go for additional changes(done)
 --done--3) less lines
 --remaining--4)stdin 
 -------------------
-define streams :--done--
+define streams :--done-
+replace all console logs by stdout and stderr

@@ -9,10 +9,7 @@ describe("headLib", function() {
       const actualValue = parseUsrOptions(args);
       const expectedValue = {
         fileName: "path",
-        range: {
-          start: 0,
-          end: 10
-        }
+        range: { start: 0, end: 10 }
       };
 
       assert.deepStrictEqual(actualValue, expectedValue);
@@ -36,9 +33,12 @@ describe("headLib", function() {
         encoder: "utf-8"
       };
 
-      const errMessage = `head: somePath: No such file or directory`;
+      const expectedAns = {
+        content: `head: somePath: No such file or directory`,
+        isErr: true
+      };
 
-      assert.strictEqual(head(args, requiredDetails), errMessage);
+      assert.deepStrictEqual(head(args, requiredDetails), expectedAns);
     });
 
     it("should return array of lines if file contains less no. of line than mentioned in range", function() {
@@ -61,7 +61,7 @@ describe("headLib", function() {
         encoder: "utf-8"
       };
 
-      const expectedAns = `0\n1\n2\n3\n4\n5`;
+      const expectedAns = { content: `0\n1\n2\n3\n4\n5`, isErr: false };
 
       assert.deepStrictEqual(head(args, requiredDetails), expectedAns);
     });
@@ -86,7 +86,10 @@ describe("headLib", function() {
         encoder: "utf-8"
       };
 
-      const expectedAns = `0\n1\n2\n3\n4\n5\n6\n7\n8\n9`;
+      const expectedAns = {
+        content: `0\n1\n2\n3\n4\n5\n6\n7\n8\n9`,
+        isErr: false
+      };
 
       assert.deepStrictEqual(head(args, requiredDetails), expectedAns);
     });
