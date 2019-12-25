@@ -1,6 +1,5 @@
-const chai = require("chai");
-const assert = chai.assert;
-const { parseUsrOptions, head, showResult } = require("../src/headLib");
+const assert = require("chai").assert;
+const { parseUsrOptions, head } = require("../src/headLib");
 
 describe("headLib", function() {
   describe("parseUsrOptions", function() {
@@ -14,19 +13,6 @@ describe("headLib", function() {
       };
 
       assert.deepStrictEqual(actualValue, expectedValue);
-    });
-  });
-  describe("showDisplay", function() {
-    it("should return console.log if there is not error", function() {
-      const result = { content: "", isErr: false };
-
-      assert.deepStrictEqual(showResult(result), console.log);
-    });
-
-    it("should return console.error if there is error", function() {
-      const result = { content: "", isErr: true };
-
-      assert.deepStrictEqual(showResult(result), console.error);
     });
   });
 
@@ -48,8 +34,7 @@ describe("headLib", function() {
       };
 
       const expectedAns = {
-        content: `head: somePath: No such file or directory`,
-        isErr: true
+        Error: `head: somePath: No such file or directory`
       };
 
       assert.deepStrictEqual(head(args, requiredDetails), expectedAns);
@@ -75,7 +60,7 @@ describe("headLib", function() {
         encoder: "utf-8"
       };
 
-      const expectedAns = { content: `0\n1\n2\n3\n4\n5`, isErr: false };
+      const expectedAns = { content: `0\n1\n2\n3\n4\n5` };
 
       assert.deepStrictEqual(head(args, requiredDetails), expectedAns);
     });
@@ -100,10 +85,7 @@ describe("headLib", function() {
         encoder: "utf-8"
       };
 
-      const expectedAns = {
-        content: `0\n1\n2\n3\n4\n5\n6\n7\n8\n9`,
-        isErr: false
-      };
+      const expectedAns = { content: `0\n1\n2\n3\n4\n5\n6\n7\n8\n9` };
 
       assert.deepStrictEqual(head(args, requiredDetails), expectedAns);
     });
