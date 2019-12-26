@@ -1,7 +1,16 @@
 const EMPTY_CONTENT = "";
 
-const parseUsrOptions = function(args) {
-  return { fileName: args[0], start: 0, end: 10 };
+const parseUserOptions = function(args) {
+  const options = { fileName: args[0], start: 0, end: 10 };
+  if (args.includes("-n")) {
+    options.end = +args[args.indexOf("-n") + 1];
+    options.fileName = args[2];
+  }
+  if (options.fileName.includes("-n")) {
+    options.end = +options.fileName.slice(2, 3);
+    options.fileName = args[1];
+  }
+  return options;
 };
 
 const loadContent = function(fs, options) {
@@ -16,7 +25,7 @@ const loadContent = function(fs, options) {
 };
 
 const head = function(args, fs) {
-  const options = parseUsrOptions(args);
+  const options = parseUserOptions(args);
   const content = loadContent(fs, options);
 
   if (content.error) return content;

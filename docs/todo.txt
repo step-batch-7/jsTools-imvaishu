@@ -25,7 +25,29 @@ add unit test cases and then go for additional changes(done)
 --done--1)file missing
 --done--2)given no. of lines
 --done--3) less lines
---remaining--4)stdin 
+
 -------------------
 define streams :--done-
-replace all console logs by stdout and stderr
+replace all console logs by stdout and stderr:--done--
+------------------
+
+v0.2 node head.js -n 1 <fileName>
+-----------------
+expectations:
+1)head.js -n 1 <fileName>
+2)head.js -n1 <fileName>
+3)head.js -1 <fileName>
+
+------------------
+
+1)appTests
+2)unit test cases
+3)usrInput validation to check option and line no. and for filename
+
+error:
+1)filename missing
+2)-n given but not mentioned line no.
+
+it should work for :
+1)given no. of lines
+2)less lines
