@@ -25,7 +25,7 @@ const head = function(args, fs) {
   if (options === undefined) {
     return {
       content: EMPTY_CONTENT,
-      error: `head: illegal line count --${args[1]}`
+      error: `head: illegal line count -- ${args[1]}`
     };
   }
   const content = loadContent(fs, options);
