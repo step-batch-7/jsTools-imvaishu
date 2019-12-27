@@ -30,7 +30,7 @@ describe("head", function() {
     const fs = { readFileSync, existsSync };
     const expectedAns = {
       content: "",
-      error: `head: illegal line count --${args[1]}`
+      error: `head: illegal line count -- ${args[1]}`
     };
 
     assert.deepStrictEqual(head(args, fs), expectedAns);
@@ -47,7 +47,7 @@ describe("head", function() {
     const fs = { readFileSync, existsSync };
     const expectedAns = {
       content: "",
-      error: `head: illegal line count --${args[1]}`
+      error: `head: illegal line count -- ${args[1]}`
     };
 
     assert.deepStrictEqual(head(args, fs), expectedAns);

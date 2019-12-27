@@ -1,2 +1,2 @@
 node head.js -n path 
-head: illegal line count --path
+head: illegal line count -- path
