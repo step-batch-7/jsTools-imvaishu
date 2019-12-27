@@ -1,39 +1,37 @@
+const parsedOptions = require("./isValidate");
+
 const EMPTY_CONTENT = "";
 
-const parseUserOptions = function(args) {
-  const options = { fileName: args[0], start: 0, end: 10 };
-  if (args.includes("-n")) {
-    options.end = +args[args.indexOf("-n") + 1];
-    options.fileName = args[2];
-  }
-  if (options.fileName.includes("-n")) {
-    options.end = +options.fileName.slice(2, 3);
-    options.fileName = args[1];
-  }
-  return options;
+const extractUpperLines = function(content, options) {
+  const lines = content.split("\n");
+  const upperLines = lines.slice(0, options.count).join("\n");
+
+  return { content: upperLines, error: EMPTY_CONTENT };
 };
 
 const loadContent = function(fs, options) {
   const { readFileSync, existsSync } = fs;
-  if (!existsSync(options.fileName)) {
+  if (!existsSync(options.path)) {
     return {
       content: EMPTY_CONTENT,
-      error: `head: ${options.fileName}: No such file or directory`
+      error: `head: ${options.path}: No such file or directory`
     };
   }
-  return readFileSync(options.fileName, "utf-8");
+  return readFileSync(options.path, "utf-8");
 };
 
 const head = function(args, fs) {
-  const options = parseUserOptions(args);
+  const options = parsedOptions(args);
+  if (options === undefined) {
+    return {
+      content: EMPTY_CONTENT,
+      error: `head: illegal line count --${args[1]}`
+    };
+  }
   const content = loadContent(fs, options);
 
   if (content.error) return content;
-
-  const lines = content.split("\n");
-  const upperLines = lines.slice(options.start, options.end).join("\n");
-
-  return { content: upperLines, error: EMPTY_CONTENT };
+  return extractUpperLines(content, options);
 };
 
 module.exports = { head };

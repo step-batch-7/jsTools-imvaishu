@@ -36,17 +36,17 @@ v0.2 node head.js -n 1 <fileName>
 expectations:
 1)head.js -n 1 <fileName>--done--
 2)head.js -n1 <fileName>--done--
-3)head.js -1 <fileName>
+3)head.js -1 <fileName>--done--
 
 ------------------
 
 1)appTests--done--
-2)unit test cases
+2)unit test cases--done--
 3)usrInput validation to check option and line no. and for filename
 
 error:
-1)filename missing
-2)-n given but not mentioned line no.
+1)filename missing--done--
+2)-n given but not mentioned line no.--done--
 
 it should work for :
 1)given no. of lines--done--

@@ -19,6 +19,40 @@ describe("head", function() {
     assert.deepStrictEqual(head(args, fs), expectedAns);
   });
 
+  it("should return error message if count is not present", function() {
+    const args = ["-n", "somePath"];
+    const existsSync = function(path) {
+      assert.notEqual(path, "path");
+      return false;
+    };
+    const readFileSync = function(path, encoder) {};
+
+    const fs = { readFileSync, existsSync };
+    const expectedAns = {
+      content: "",
+      error: `head: illegal line count --${args[1]}`
+    };
+
+    assert.deepStrictEqual(head(args, fs), expectedAns);
+  });
+
+  it("should return error message if file is not present", function() {
+    const args = ["-n", "5"];
+    const existsSync = function(path) {
+      assert.notEqual(path, "path");
+      return false;
+    };
+    const readFileSync = function(path, encoder) {};
+
+    const fs = { readFileSync, existsSync };
+    const expectedAns = {
+      content: "",
+      error: `head: illegal line count --${args[1]}`
+    };
+
+    assert.deepStrictEqual(head(args, fs), expectedAns);
+  });
+
   it("should return array of lines if file contains less no. of line than mentioned in range", function() {
     const args = ["path"];
 
