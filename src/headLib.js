@@ -1,9 +1,4 @@
-const parsedOptions = function (args) {
-  const lastIndex = 1;
-  const path = args[args.length - lastIndex];
-  const options = { path, start: 0, count: 10 };
-  return options;
-};
+const parsedOptions = require('./parseOptions');
 
 const extractUpperLines = function (content, options) {
   const lines = content.split('\n');
