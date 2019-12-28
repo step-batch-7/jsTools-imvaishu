@@ -1,158 +1,62 @@
-const assert = require("chai").assert;
-const { head } = require("../src/headLib");
+const assert = require('chai').assert;
+const { head } = require('../src/headLib');
 
-describe("head", function() {
-  it("should return error message if file is not present", function() {
-    const args = ["somePath"];
-    const existsSync = function(path) {
-      assert.notEqual(path, "path");
-      return false;
-    };
-    const readFileSync = function(path, encoder) {};
-
-    const fs = { readFileSync, existsSync };
-    const expectedAns = {
-      content: "",
-      error: `head: somePath: No such file or directory`
+describe('head', function () {
+  it('should return error message if file is not present', function () {
+    const args = ['path'];
+    const expectedErr = 'head: path: No such file or directory';
+    const readFile = function (path, encoder, callback) {
+      assert.deepStrictEqual(path, 'path');
+      assert.strictEqual(encoder, 'utf-8');
+      callback('error');
     };
 
-    assert.deepStrictEqual(head(args, fs), expectedAns);
+    const fs = { readFile };
+
+    const show = {
+      writeToOutputStream: data => assert.isUndefined(data),
+      writeToErrorStream: data => assert.deepStrictEqual(data, expectedErr)
+    };
+    head(args, fs, show);
   });
 
-  it("should return error message if count is not present", function() {
-    const args = ["-n", "somePath"];
-    const existsSync = function(path) {
-      assert.notEqual(path, "path");
-      return false;
-    };
-    const readFileSync = function(path, encoder) {};
+  it('should return lines if file contains less lines', function () {
+    const args = ['path'];
 
-    const fs = { readFileSync, existsSync };
-    const expectedAns = {
-      content: "",
-      error: `head: illegal line count -- ${args[1]}`
+    const expectedData = '1\n2\n3';
+
+    const readFile = function (path, encoder, callback) {
+      assert.strictEqual(path, 'path');
+      assert.strictEqual(encoder, 'utf-8');
+      callback(null, '1\n2\n3');
     };
 
-    assert.deepStrictEqual(head(args, fs), expectedAns);
+    const fs = { readFile };
+    const show = {
+      writeToOutputStream: data => assert.deepStrictEqual(data, expectedData),
+      writeToErrorStream: data => assert.isUndefined(data)
+    };
+    head(args, fs, show);
   });
 
-  it("should return error message if file is not present", function() {
-    const args = ["-n", "5"];
-    const existsSync = function(path) {
-      assert.notEqual(path, "path");
-      return false;
-    };
-    const readFileSync = function(path, encoder) {};
+  it('should return 10 lines if file contain more lines', function () {
+    const args = ['path'];
 
-    const fs = { readFileSync, existsSync };
-    const expectedAns = {
-      content: "",
-      error: `head: illegal line count -- ${args[1]}`
+    const expectedData = '0\n1\n2\n3\n4\n5\n6\n7\n8\n9';
+
+    const readFile = function (path, encoder, callback) {
+      assert.strictEqual(path, 'path');
+      assert.strictEqual(encoder, 'utf-8');
+      callback(null, '0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11');
     };
 
-    assert.deepStrictEqual(head(args, fs), expectedAns);
-  });
+    const fs = { readFile };
 
-  it("should return array of lines if file contains less no. of line than mentioned in range", function() {
-    const args = ["path"];
-
-    const existsSync = function(path) {
-      assert.strictEqual(path, "path");
-      return true;
+    const show = {
+      writeToOutputStream: data => assert.deepStrictEqual(data, expectedData),
+      writeToErrorStream: data => assert.isUndefined(data)
     };
 
-    const readFileSync = function(path, encoder) {
-      assert.strictEqual(path, "path");
-      assert.strictEqual(encoder, "utf-8");
-      return `0\n1\n2\n3\n4\n5`;
-    };
-
-    const fs = { readFileSync, existsSync };
-    const expectedAns = { content: `0\n1\n2\n3\n4\n5`, error: "" };
-
-    assert.deepStrictEqual(head(args, fs), expectedAns);
-  });
-
-  it("should return array of given no. of lines if file contains more lines than mentioned lines", function() {
-    const args = ["path"];
-
-    const existsSync = function(path) {
-      assert.strictEqual(path, "path");
-      return true;
-    };
-
-    const readFileSync = function(path, encoder) {
-      assert.strictEqual(path, "path");
-      assert.strictEqual(encoder, "utf-8");
-      return `0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11`;
-    };
-
-    const fs = { readFileSync, existsSync };
-    const expectedAns = {
-      content: `0\n1\n2\n3\n4\n5\n6\n7\n8\n9`,
-      error: ""
-    };
-
-    assert.deepStrictEqual(head(args, fs), expectedAns);
-  });
-
-  it("should return array of lines if file contains less no. of line than mentioned in range and -n option given", function() {
-    const args = ["-n", "9", "path"];
-
-    const existsSync = function(path) {
-      assert.strictEqual(path, "path");
-      return true;
-    };
-
-    const readFileSync = function(path, encoder) {
-      assert.strictEqual(path, "path");
-      assert.strictEqual(encoder, "utf-8");
-      return `0\n1\n2\n3\n4\n5`;
-    };
-
-    const fs = { readFileSync, existsSync };
-    const expectedAns = { content: `0\n1\n2\n3\n4\n5`, error: "" };
-
-    assert.deepStrictEqual(head(args, fs), expectedAns);
-  });
-
-  it("should return array of lines mentioned in range when -n option given", function() {
-    const args = ["-n", "2", "path"];
-
-    const existsSync = function(path) {
-      assert.strictEqual(path, "path");
-      return true;
-    };
-
-    const readFileSync = function(path, encoder) {
-      assert.strictEqual(path, "path");
-      assert.strictEqual(encoder, "utf-8");
-      return `0\n1\n2\n3\n4\n5`;
-    };
-
-    const fs = { readFileSync, existsSync };
-    const expectedAns = { content: `0\n1`, error: "" };
-
-    assert.deepStrictEqual(head(args, fs), expectedAns);
-  });
-
-  it("should return array of lines mentioned in range when -n option given with no.", function() {
-    const args = ["-n2", "path"];
-
-    const existsSync = function(path) {
-      assert.strictEqual(path, "path");
-      return true;
-    };
-
-    const readFileSync = function(path, encoder) {
-      assert.strictEqual(path, "path");
-      assert.strictEqual(encoder, "utf-8");
-      return `0\n1\n2\n3\n4\n5`;
-    };
-
-    const fs = { readFileSync, existsSync };
-    const expectedAns = { content: `0\n1`, error: "" };
-
-    assert.deepStrictEqual(head(args, fs), expectedAns);
+    head(args, fs, show);
   });
 });

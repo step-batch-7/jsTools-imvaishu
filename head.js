@@ -1,12 +1,13 @@
-const fs = require("fs");
-const { head } = require("./src/headLib");
+const fs = require('fs');
+const { head } = require('./src/headLib');
 
-const main = function() {
-  const args = process.argv.slice(2);
-
-  const result = head(args, fs);
-  process.stdout.write(result.content);
-  process.stderr.write(result.error);
+const main = function () {
+  const [, , ...args] = process.argv;
+  const show = {
+    writeToOutputStream: data => process.stdout.write(data),
+    writeToErrorStream: data => process.stderr.write(data)
+  };
+  head(args, fs, show);
 };
 
 main();
