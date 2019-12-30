@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "nyc mocha",
+    "test": "nyc mocha && eslint src test",
     "allTests": "nyc mocha; ./runAppTests.sh appTests/*.test"
   },
   "dependencies": {

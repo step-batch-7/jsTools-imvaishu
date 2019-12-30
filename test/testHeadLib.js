@@ -60,8 +60,50 @@ describe('head', function () {
     head(args, fs, show);
   });
 
-  it('should return 10 lines if file contain more lines', function () {
+  it('should return 5 lines if line no. are mentioned', function () {
     const args = ['-n', '5', 'path'];
+
+    const expectedData = '0\n1\n2\n3\n4';
+
+    const readFile = function (path, encoder, callback) {
+      assert.strictEqual(path, 'path');
+      assert.strictEqual(encoder, 'utf-8');
+      callback(null, '0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11');
+    };
+
+    const fs = { readFile };
+
+    const show = {
+      writeToOutputStream: data => assert.deepStrictEqual(data, expectedData),
+      writeToErrorStream: data => assert.isUndefined(data)
+    };
+
+    head(args, fs, show);
+  });
+
+  it('should return 5 lines if option(count) is given', function () {
+    const args = ['-n5', 'path'];
+
+    const expectedData = '0\n1\n2\n3\n4';
+
+    const readFile = function (path, encoder, callback) {
+      assert.strictEqual(path, 'path');
+      assert.strictEqual(encoder, 'utf-8');
+      callback(null, '0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11');
+    };
+
+    const fs = { readFile };
+
+    const show = {
+      writeToOutputStream: data => assert.deepStrictEqual(data, expectedData),
+      writeToErrorStream: data => assert.isUndefined(data)
+    };
+
+    head(args, fs, show);
+  });
+
+  it('should return 5 lines if only count is given', function () {
+    const args = ['-5', 'path'];
 
     const expectedData = '0\n1\n2\n3\n4';
 
