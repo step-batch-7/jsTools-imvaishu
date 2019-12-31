@@ -1,6 +1,6 @@
 const assert = require('chai').assert;
 const { head } = require('../src/headLib');
-
+/*eslint-disable no-magic-numbers*/
 describe('head', function () {
   it('should return error message if file is not present', function (done) {
     const args = ['path'];
@@ -8,11 +8,10 @@ describe('head', function () {
     const readFile = function (path, encoder, callback) {
       assert.deepStrictEqual(path, 'path');
       assert.strictEqual(encoder, 'utf-8');
-      setTimeout(() => callback('error'), second);
+      setTimeout(() => callback('error'), 0);
     };
 
     const fs = { readFile };
-    const second = 0;
 
     const show = {
       writeToOutputStream: data => assert.isUndefined(data),
@@ -30,11 +29,10 @@ describe('head', function () {
     const readFile = function (path, encoder, callback) {
       assert.strictEqual(path, 'path');
       assert.strictEqual(encoder, 'utf-8');
-      setTimeout(() => callback(null, '1\n2\n3'), second);
+      setTimeout(() => callback(null, '1\n2\n3'), 0);
     };
 
     const fs = { readFile };
-    const second = 0;
 
     const show = {
       writeToOutputStream: data => assert.deepStrictEqual(data, expectedData),
@@ -52,12 +50,10 @@ describe('head', function () {
     const readFile = function (path, encoder, callback) {
       assert.strictEqual(path, 'path');
       assert.strictEqual(encoder, 'utf-8');
-      setTimeout(() => callback(null, data), sec);
+      setTimeout(() => callback(null, '0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n1\n1'), 0);
     };
 
     const fs = { readFile };
-    const sec = 0;
-    const data = '0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n1\n1'; 
 
     const show = {
       writeToOutputStream: data => assert.deepStrictEqual(data, expectedData),
@@ -75,11 +71,10 @@ describe('head', function () {
     const readFile = function (path, encoder, callback) {
       assert.strictEqual(path, 'path');
       assert.strictEqual(encoder, 'utf-8');
-      setTimeout(() => callback(null, '0\n1\n2\n3\n4\n5\n6\n7\n8\n9'), second);
+      setTimeout(() => callback(null, '0\n1\n2\n3\n4\n5\n6\n7\n8\n9'), 0);
     };
 
     const fs = { readFile };
-    const second = 0;
 
     const show = {
       writeToOutputStream: data => assert.deepStrictEqual(data, expectedData),
@@ -97,11 +92,10 @@ describe('head', function () {
     const readFile = function (path, encoder, callback) {
       assert.strictEqual(path, 'path');
       assert.strictEqual(encoder, 'utf-8');
-      setTimeout(() => callback(null, '0\n1\n2\n3\n4\n5\n6\n7\n8\n9'), sec);
+      setTimeout(() => callback(null, '0\n1\n2\n3\n4\n5\n6\n7\n8\n9'), 0);
     };
 
     const fs = { readFile };
-    const sec = 0;
 
     const show = {
       writeToOutputStream: data => assert.deepStrictEqual(data, expectedData),
@@ -119,11 +113,10 @@ describe('head', function () {
     const readFile = function (path, encoder, callback) {
       assert.strictEqual(path, 'path');
       assert.strictEqual(encoder, 'utf-8');
-      setTimeout(() => callback(null, '0\n1\n2\n3\n4\n5\n6'), sec);
+      setTimeout(() => callback(null, '0\n1\n2\n3\n4\n5\n6'), 0);
     };
 
     const fs = { readFile };
-    const sec = 0;
 
     const show = {
       writeToOutputStream: data => assert.deepStrictEqual(data, expectedData),
@@ -135,7 +128,7 @@ describe('head', function () {
 
   it('should return error message if given options are not valid', (done) => {
     const args = ['-n', 'path'];
-    const expectedErr = 'usage: head [-n lines] file';
+    const expectedErr = 'head: illegal line count -- path';
     
     const show = {
       writeToOutputStream: data => assert.isUndefined(data),
@@ -143,5 +136,6 @@ describe('head', function () {
     };
     done();
     head(args, show);
+    /*eslint-enable no-magic-numbers*/
   });
 });

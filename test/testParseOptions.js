@@ -44,14 +44,20 @@ describe('parseOption', function(){
 
   it('should return undefined if wrong option given', function(){
     const args = ['-m', '1', 'path'];
-    const parsedOptions = {areOptionsValid: false};
+    const start = 0;
+    const options = {start, count: NaN, path: '1'};
+       
+    const parsedOptions = {options, areOptionsValid: false};
 
     assert.deepStrictEqual(parseOption(args), parsedOptions);
   });
 
   it('should return undefined if count is not given', function(){
     const args = ['-n', 'path'];
-    const parsedOptions = {areOptionsValid: false};
+    const start = 0;
+    const options = {start, count: NaN, path: 'path'};
+
+    const parsedOptions = {options, areOptionsValid: false};
 
     assert.deepStrictEqual(parseOption(args), parsedOptions);
   });
