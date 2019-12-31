@@ -24,11 +24,10 @@ const parsedOptions = function (args) {
     }
     options.path = args[index];
     if(!areOptionsValid(options.count, options.path)){
-      return { areOptionsValid: false};
+      return {options, areOptionsValid: false};
     }
   }
   return {options, areOptionsValid: true};
 };
-
 
 module.exports = parsedOptions;
