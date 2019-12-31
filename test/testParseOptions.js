@@ -6,7 +6,7 @@ describe('parseOption', function(){
     const args = ['-n', '5', 'path'];
     const start = 0;
     const count = 5;
-    const parsedOptions = {start, count, path: 'path', };
+    const parsedOptions = {options: {start, count, path: 'path'}, areOptionsValid: true };
 
     assert.deepStrictEqual(parseOption(args), parsedOptions);
   });
@@ -15,7 +15,7 @@ describe('parseOption', function(){
     const args = ['-n5', 'path'];
     const start = 0;
     const count = 5;
-    const parsedOptions = {start, count, path: 'path', };
+    const parsedOptions = {options: {start, count, path: 'path'}, areOptionsValid: true };
 
     assert.deepStrictEqual(parseOption(args), parsedOptions);
   });
@@ -24,7 +24,7 @@ describe('parseOption', function(){
     const args = ['path'];
     const start = 0;
     const count = 10;
-    const parsedOptions = {start, count, path: 'path', };
+    const parsedOptions = {options: {start, count, path: 'path'}, areOptionsValid: true };
 
     assert.deepStrictEqual(parseOption(args), parsedOptions);
   });
@@ -33,21 +33,23 @@ describe('parseOption', function(){
     const args = ['-1', 'path'];
     const start = 0;
     const count = 1;
-    const parsedOptions = {start, count, path: 'path', };
+    const parsedOptions = {options: {start, count, path: 'path'}, areOptionsValid: true };
 
     assert.deepStrictEqual(parseOption(args), parsedOptions);
   });
 
   it('should return undefined if wrong option given', function(){
     const args = ['-m', '1', 'path'];
-   
-    assert.isUndefined(parseOption(args));
+    const parsedOptions = {areOptionsValid: false};
+
+    assert.deepStrictEqual(parseOption(args), parsedOptions);
   });
 
   it('should return undefined if count is not given', function(){
     const args = ['-n', 'path'];
-   
-    assert.isUndefined(parseOption(args));
+    const parsedOptions = {areOptionsValid: false};
+
+    assert.deepStrictEqual(parseOption(args), parsedOptions);
   });
 });
 

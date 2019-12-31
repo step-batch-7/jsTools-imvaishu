@@ -1,9 +1,9 @@
-const isCountValid = function(count){
+const areOptionsValid = function(count, path){
   const initialLimit = 0;
-  return count > initialLimit && Number.isInteger(+count);
+  return +count > initialLimit && Number.isInteger(+count) && path !== undefined;
 };
 
-const isOptionValid = function(option, count){
+const getCountValue = function(option, count){
   const maxLength = 2;
   if(option.startsWith('-n')){
     if(option.length > maxLength){
@@ -19,13 +19,16 @@ const parsedOptions = function (args) {
   const nextIndex = 1;
   for(let index = 0; index < args.length; index++){
     if(args[index].startsWith('-')){
-      options.count = isOptionValid(args[index], args[index + nextIndex]);
-      if(!isCountValid(options.count)){return undefined;}
+      options.count = getCountValue(args[index], args[index + nextIndex]);
       index = index + nextIndex;
     }
     options.path = args[index];
+    if(!areOptionsValid(options.count, options.path)){
+      return { areOptionsValid: false};
+    }
   }
-  return options;
+  return {options, areOptionsValid: true};
 };
+
 
 module.exports = parsedOptions;

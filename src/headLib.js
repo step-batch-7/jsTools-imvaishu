@@ -19,7 +19,11 @@ const onHeadCompletion = function (err, data) {
 };
 
 const head = function (args, fs, show) {
-  const options = parsedOptions(args);
+  const {options, areOptionsValid} = parsedOptions(args);
+  if(!areOptionsValid){
+    show.writeToErrorStream('usage: head [-n lines] file');
+    return;
+  }
   fs.readFile(options.path, 'utf-8', onHeadCompletion.bind({ show, options }));
 };
 
