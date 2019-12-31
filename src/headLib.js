@@ -20,9 +20,9 @@ const onHeadCompletion = function (err, data) {
 
 const head = function (args, fs, show) {
   const {options, areOptionsValid} = parsedOptions(args);
+  const { path } = options;
   if(!areOptionsValid){
-    show.writeToErrorStream(`head: illegal line count -- ${options.path}`);
-    return;
+    return show.writeToErrorStream(`head: illegal line count -- ${path}`);
   }
   fs.readFile(options.path, 'utf-8', onHeadCompletion.bind({ show, options }));
 };
