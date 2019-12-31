@@ -8,10 +8,11 @@ describe('head', function () {
     const readFile = function (path, encoder, callback) {
       assert.deepStrictEqual(path, 'path');
       assert.strictEqual(encoder, 'utf-8');
-      setTimeout(() => callback('error'), 0);
+      setTimeout(() => callback('error'), second);
     };
 
     const fs = { readFile };
+    const second = 0;
 
     const show = {
       writeToOutputStream: data => assert.isUndefined(data),
@@ -29,10 +30,12 @@ describe('head', function () {
     const readFile = function (path, encoder, callback) {
       assert.strictEqual(path, 'path');
       assert.strictEqual(encoder, 'utf-8');
-      setTimeout(() => callback(null, '1\n2\n3'), 0);
+      setTimeout(() => callback(null, '1\n2\n3'), second);
     };
 
     const fs = { readFile };
+    const second = 0;
+
     const show = {
       writeToOutputStream: data => assert.deepStrictEqual(data, expectedData),
       writeToErrorStream: data => assert.isUndefined(data)
@@ -49,10 +52,12 @@ describe('head', function () {
     const readFile = function (path, encoder, callback) {
       assert.strictEqual(path, 'path');
       assert.strictEqual(encoder, 'utf-8');
-      setTimeout(() => callback(null, '0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11'), 0);
+      setTimeout(() => callback(null, data), sec);
     };
 
     const fs = { readFile };
+    const sec = 0;
+    const data = '0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n1\n1'; 
 
     const show = {
       writeToOutputStream: data => assert.deepStrictEqual(data, expectedData),
@@ -70,10 +75,11 @@ describe('head', function () {
     const readFile = function (path, encoder, callback) {
       assert.strictEqual(path, 'path');
       assert.strictEqual(encoder, 'utf-8');
-      setTimeout(() => callback(null, '0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11'), 0);
+      setTimeout(() => callback(null, '0\n1\n2\n3\n4\n5\n6\n7\n8\n9'), second);
     };
 
     const fs = { readFile };
+    const second = 0;
 
     const show = {
       writeToOutputStream: data => assert.deepStrictEqual(data, expectedData),
@@ -91,10 +97,11 @@ describe('head', function () {
     const readFile = function (path, encoder, callback) {
       assert.strictEqual(path, 'path');
       assert.strictEqual(encoder, 'utf-8');
-      setTimeout(() => callback(null, '0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11'), 0);
+      setTimeout(() => callback(null, '0\n1\n2\n3\n4\n5\n6\n7\n8\n9'), sec);
     };
 
     const fs = { readFile };
+    const sec = 0;
 
     const show = {
       writeToOutputStream: data => assert.deepStrictEqual(data, expectedData),
@@ -112,10 +119,11 @@ describe('head', function () {
     const readFile = function (path, encoder, callback) {
       assert.strictEqual(path, 'path');
       assert.strictEqual(encoder, 'utf-8');
-      setTimeOut(() => callback(null, '0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11'), 0);
+      setTimeout(() => callback(null, '0\n1\n2\n3\n4\n5\n6'), sec);
     };
 
     const fs = { readFile };
+    const sec = 0;
 
     const show = {
       writeToOutputStream: data => assert.deepStrictEqual(data, expectedData),

@@ -22,7 +22,6 @@ const head = function (args, fs, show) {
   const {options, areOptionsValid} = parsedOptions(args);
   if(!areOptionsValid){
     show.writeToErrorStream('usage: head [-n lines] file');
-    return;
   }
   fs.readFile(options.path, 'utf-8', onHeadCompletion.bind({ show, options }));
 };

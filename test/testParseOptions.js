@@ -6,7 +6,8 @@ describe('parseOption', function(){
     const args = ['-n', '5', 'path'];
     const start = 0;
     const count = 5;
-    const parsedOptions = {options: {start, count, path: 'path'}, areOptionsValid: true };
+    const options = {start, count, path: 'path'};
+    const parsedOptions = {options, areOptionsValid: true };
 
     assert.deepStrictEqual(parseOption(args), parsedOptions);
   });
@@ -15,7 +16,8 @@ describe('parseOption', function(){
     const args = ['-n5', 'path'];
     const start = 0;
     const count = 5;
-    const parsedOptions = {options: {start, count, path: 'path'}, areOptionsValid: true };
+    const options = {start, count, path: 'path'};
+    const parsedOptions = {options, areOptionsValid: true };
 
     assert.deepStrictEqual(parseOption(args), parsedOptions);
   });
@@ -24,7 +26,8 @@ describe('parseOption', function(){
     const args = ['path'];
     const start = 0;
     const count = 10;
-    const parsedOptions = {options: {start, count, path: 'path'}, areOptionsValid: true };
+    const options = {start, count, path: 'path'};
+    const parsedOptions = {options, areOptionsValid: true };
 
     assert.deepStrictEqual(parseOption(args), parsedOptions);
   });
@@ -33,7 +36,8 @@ describe('parseOption', function(){
     const args = ['-1', 'path'];
     const start = 0;
     const count = 1;
-    const parsedOptions = {options: {start, count, path: 'path'}, areOptionsValid: true };
+    const options =  {start, count, path: 'path'};
+    const parsedOptions =  { options, areOptionsValid: true };
 
     assert.deepStrictEqual(parseOption(args), parsedOptions);
   });
