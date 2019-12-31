@@ -51,3 +51,11 @@ error:
 it should work for :
 1)given no. of lines--done--
 2)less lines--done--
+
+-----------
+variable name of count : numOfLines;--done--
+no need to send all options in extractUpperLines(no need of path)--done--
+no need of start (0);--done--
+-----
+parseUserOptions
+create separate function for splitting with space 

@@ -1,30 +1,32 @@
 const parsedOptions = require('./parseOptions');
 
-const extractUpperLines = function (content, options) {
+const extractUpperLines = function (content, numOfLines) {
+  const from = 0;
   const lines = content.split('\n');
-  const upperLines = lines.slice(options.start, options.count).join('\n');
+  const upperLines = lines.slice(from, numOfLines).join('\n');
 
   return upperLines;
 };
 
-const onHeadCompletion = function (err, data) {
-  if (err) {
-    this.show.writeToErrorStream(
-      `head: ${this.options.path}: No such file or directory`
-    );
-    return;
-  }
-  const content = extractUpperLines(data, this.options);
-  this.show.writeToOutputStream(content);
-};
-
 const head = function (args, fs, show) {
-  const {options, areOptionsValid} = parsedOptions(args);
-  const { path } = options;
+  const { writeToOutputStream, writeToErrorStream } = show;
+  const { options, areOptionsValid } = parsedOptions(args);
+  const { path, numOfLines } = options;
+
   if(!areOptionsValid){
-    return show.writeToErrorStream(`head: illegal line count -- ${path}`);
+    return writeToErrorStream(`head: illegal line count -- ${path}`);
   }
-  fs.readFile(options.path, 'utf-8', onHeadCompletion.bind({ show, options }));
+  const onHeadCompletion = function (error, data) {
+    if (error) {
+      writeToErrorStream(
+        `head: ${path}: No such file or directory`
+      );
+      return;
+    }
+    const content = extractUpperLines(data, numOfLines );
+    writeToOutputStream(content);
+  };
+  fs.readFile(path, 'utf-8', onHeadCompletion);
 };
 
 module.exports = { head };

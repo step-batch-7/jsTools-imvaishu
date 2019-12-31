@@ -135,7 +135,7 @@ describe('head', function () {
       writeToErrorStream: data => assert.deepStrictEqual(data, expectedErr)
     };
     done();
-    head(args, show);
+    head(args, undefined, show);
     /*eslint-enable no-magic-numbers*/
   });
 });
