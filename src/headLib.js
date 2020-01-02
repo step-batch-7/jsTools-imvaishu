@@ -1,11 +1,16 @@
 const parsedOptions = require('./parseOptions');
-
+/*eslint-disable no-magic-numbers*/
 const extractUpperLines = function (content, numOfLines) {
-  const from = 0;
-  const lines = content.split('\n');
-  const upperLines = lines.slice(from, numOfLines).join('\n');
-
+  const upperLines = content.split('\n').slice(0, numOfLines).join('\n');
   return upperLines;
+};
+/*eslint-enable no-magic-numbers*/
+const errorHandler = function(error, path){
+  const errors = {
+    illegalOption: `head: illegal line count -- ${path}`,
+    fileMissing: `head: ${path}: No such file or directory`
+  };
+  return errors[error];
 };
 
 const head = function (args, fs, show) {
@@ -14,17 +19,14 @@ const head = function (args, fs, show) {
   const { path, numOfLines } = options;
 
   if(!areOptionsValid){
-    return writeToErrorStream(`head: illegal line count -- ${path}`);
+    return writeToErrorStream(errorHandler('illegalOption', path));
   }
   const onHeadCompletion = function (error, data) {
     if (error) {
-      writeToErrorStream(
-        `head: ${path}: No such file or directory`
-      );
+      writeToErrorStream(errorHandler('fileMissing', path));
       return;
     }
-    const content = extractUpperLines(data, numOfLines );
-    writeToOutputStream(content);
+    writeToOutputStream(extractUpperLines(data, numOfLines ));
   };
   fs.readFile(path, 'utf-8', onHeadCompletion);
 };

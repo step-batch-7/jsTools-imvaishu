@@ -1,6 +1,6 @@
-const areOptionsValid = function(numOfLines, path){
+const areOptionsValid = function(count, path){
   const initialLimit = 0;
-  return numOfLines > initialLimit && Number.isInteger(numOfLines) && path !== undefined;
+  return count > initialLimit && Number.isInteger(count) && path !== undefined;
 };
 
 const getCountValue = function(option, numOfLines){
