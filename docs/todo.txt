@@ -56,6 +56,10 @@ it should work for :
 variable name of count : numOfLines;--done--
 no need to send all options in extractUpperLines(no need of path)--done--
 no need of start (0);--done--
+<<<<<<< HEAD
+created error handler function to get error message--done--
+=======
+>>>>>>> 52bb7613cb0e6b086c0a7deb897af260ac95148b
 -----
 parseUserOptions
 create separate function for splitting with space 
