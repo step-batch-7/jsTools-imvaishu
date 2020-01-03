@@ -14,9 +14,9 @@ const errorHandler = function(error, path){
 };
 
 const head = function (args, fs, show) {
-  const { writeToOutputStream, writeToErrorStream } = show;
-  const { options, areOptionsValid } = parsedOptions(args);
-  const { path, num } = options;
+  const {writeToOutputStream, writeToErrorStream} = show;
+  const {options, areOptionsValid} = parsedOptions(args);
+  const {path, num} = options;
 
   if(!areOptionsValid){
     return writeToErrorStream(errorHandler('illegalOption', path));
@@ -31,4 +31,4 @@ const head = function (args, fs, show) {
   fs.readFile(path, 'utf-8', onHeadCompletion);
 };
 
-module.exports = { head };
+module.exports = {head};

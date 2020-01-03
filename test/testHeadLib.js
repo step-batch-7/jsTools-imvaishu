@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const { head } = require('../src/headLib');
+const {head} = require('../src/headLib');
 /*eslint-disable no-magic-numbers*/
 describe('head', function () {
   it('should return error message if file is not present', function (done) {
@@ -11,7 +11,7 @@ describe('head', function () {
       setTimeout(() => callback('error'), 0);
     };
 
-    const fs = { readFile };
+    const fs = {readFile};
 
     const show = {
       writeToOutputStream: data => assert.isUndefined(data),
@@ -32,7 +32,7 @@ describe('head', function () {
       setTimeout(() => callback(null, '1\n2\n3'), 0);
     };
 
-    const fs = { readFile };
+    const fs = {readFile};
 
     const show = {
       writeToOutputStream: data => assert.deepStrictEqual(data, expectedData),
@@ -53,7 +53,7 @@ describe('head', function () {
       setTimeout(() => callback(null, '0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n1\n1'), 0);
     };
 
-    const fs = { readFile };
+    const fs = {readFile};
 
     const show = {
       writeToOutputStream: data => assert.deepStrictEqual(data, expectedData),
@@ -74,7 +74,7 @@ describe('head', function () {
       setTimeout(() => callback(null, '0\n1\n2\n3\n4\n5\n6\n7\n8\n9'), 0);
     };
 
-    const fs = { readFile };
+    const fs = {readFile};
 
     const show = {
       writeToOutputStream: data => assert.deepStrictEqual(data, expectedData),
@@ -95,7 +95,7 @@ describe('head', function () {
       setTimeout(() => callback(null, '0\n1\n2\n3\n4\n5\n6\n7\n8\n9'), 0);
     };
 
-    const fs = { readFile };
+    const fs = {readFile};
 
     const show = {
       writeToOutputStream: data => assert.deepStrictEqual(data, expectedData),
@@ -116,7 +116,7 @@ describe('head', function () {
       setTimeout(() => callback(null, '0\n1\n2\n3\n4\n5\n6'), 0);
     };
 
-    const fs = { readFile };
+    const fs = {readFile};
 
     const show = {
       writeToOutputStream: data => assert.deepStrictEqual(data, expectedData),

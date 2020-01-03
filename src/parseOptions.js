@@ -5,13 +5,13 @@ const areOptionsValid = function(count, path){
 
 const getNumOfLines = function(option, num, idx){
   if(option === '-n'){
-    return  +num;
+    return +num;
   }
-  return +option[option.length - idx] ;
+  return +option[option.length - idx];
 };
 
 const parsedOptions = function (args) {
-  const options ={ num: 10};
+  const options = {num: 10};
   const one = 1;
   for(let idx = 0; idx < args.length; idx++){
     if(args[idx].startsWith('-')){
