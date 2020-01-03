@@ -1,7 +1,7 @@
 const parsedOptions = require('./parseOptions');
 /*eslint-disable no-magic-numbers*/
-const extractUpperLines = function (content, numOfLines) {
-  const upperLines = content.split('\n').slice(0, numOfLines).join('\n');
+const extractUpperLines = function (content, num) {
+  const upperLines = content.split('\n').slice(0, num).join('\n');
   return upperLines;
 };
 /*eslint-enable no-magic-numbers*/
@@ -16,7 +16,7 @@ const errorHandler = function(error, path){
 const head = function (args, fs, show) {
   const { writeToOutputStream, writeToErrorStream } = show;
   const { options, areOptionsValid } = parsedOptions(args);
-  const { path, numOfLines } = options;
+  const { path, num } = options;
 
   if(!areOptionsValid){
     return writeToErrorStream(errorHandler('illegalOption', path));
@@ -26,7 +26,7 @@ const head = function (args, fs, show) {
       writeToErrorStream(errorHandler('fileMissing', path));
       return;
     }
-    writeToOutputStream(extractUpperLines(data, numOfLines ));
+    writeToOutputStream(extractUpperLines(data, num ));
   };
   fs.readFile(path, 'utf-8', onHeadCompletion);
 };

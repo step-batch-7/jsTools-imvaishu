@@ -3,34 +3,27 @@ const areOptionsValid = function(count, path){
   return count > initialLimit && Number.isInteger(count) && path !== undefined;
 };
 
-const getCountValue = function(option, numOfLines){
-  const maxLength = 2;
-  if(option.startsWith('-n')){
-    if(option.length > maxLength){
-      return +option.split('-n').pop();
-    }
-    return +numOfLines;
+const getNumOfLines = function(option, num, idx){
+  if(option === '-n'){
+    return  +num;
   }
-  return +option.split('-').pop();
+  return +option[option.length - idx] ;
 };
 
 const parsedOptions = function (args) {
-  const options ={ numOfLines: 10};
-  const nextIndex = 1;
-  for(let index = 0; index < args.length; index++){
-    if(args[index].startsWith('-')){
-      options.numOfLines = getCountValue(args[index], args[index + nextIndex]);
-      index = index + nextIndex;
+  const options ={ num: 10};
+  const one = 1;
+  for(let idx = 0; idx < args.length; idx++){
+    if(args[idx].startsWith('-')){
+      options.num = getNumOfLines(args[idx], args[idx + one], one);
+      idx = idx + one;
     }
-    options.path = args[index];
-    if(!areOptionsValid(options.numOfLines, options.path)){
+    options.path = args[idx];
+    if(!areOptionsValid(options.num, options.path)){
       return {options, areOptionsValid: false};
     }
   }
-
   return {options, areOptionsValid: true};
 };
 
 module.exports = parsedOptions;
-
-
